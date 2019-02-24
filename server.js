@@ -2,10 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 var num = 10;
+let port = process.env.PORT || 3000;
 
 const nodemailer = require('nodemailer');
 
-var transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'gevtest98@gmail.com',
@@ -109,4 +110,4 @@ app.post('/test', urlencodedParser, (req, res) => {
 
 
 
-app.listen(process.env.PORT || 3000, console.log("server start"));
+app.listen(port);
