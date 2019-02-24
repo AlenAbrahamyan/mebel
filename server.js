@@ -1,33 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+var num = 10;
+
 const nodemailer = require('nodemailer');
-
-
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: '',
-    pass: ''
+    user: 'gevtest98@gmail.com',
+    pass: 'gevor12gevor'
   }
 });
 
-var mailOptions = {
-  from: 'alenabrahamyan0@gmail.com',
-  to: 'alen.abrahamyan7@tumo.org',
-  subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
-};
 
-
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});
 
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -54,9 +40,26 @@ app.get('/', (req, res) => {
 
 app.post('/', urlencodedParser, (req, res) => {
     
-  res.render('index', {data: req.body});
-  console.log(req.body.phone);
-  console.log(req.body.item11);
+  res.render('index', {data: req.body, tiv: date1});
+ 
+
+  num++;
+
+  var mailOptions = {
+    from: 'gevtest98@gmail.com',
+    to: 'alen.abrahamyan7@tumo.org',
+    subject: 'Новые заказы '+num,
+    html: '<h1>Новые заказы</h1><p>' + req.body.phone + '</p><p>' + req.body.item11 + '</p>'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ');
+    }
+  
+  });
   
 });
 
@@ -68,20 +71,31 @@ app.get('/quiz', (req, res) => {
 
 app.get('/test', (req, res) => {
   res.render('test', {tiv: date1, url_code: req.query});
-  console.log(req.query);
+  
 });
 
 
 app.post('/test', urlencodedParser, (req, res) => {
     
   res.render('test', {data: req.body, url_code: req.query});
-  console.log(req.body.step1);
-  console.log(req.body.step2);
-  console.log(req.body.step3);
-  console.log(req.body.step4);
-  console.log(req.body.step5);
-  console.log(req.body.step6);
-  console.log(req.body.phone);
+  num++;
+
+
+  var mailOptions = {
+    from: 'gevtest98@gmail.com',
+    to: 'alen.abrahamyan7@tumo.org',
+    subject: 'Новые заказы '+num,
+    html: '<h1>Новые заказы</h1><p>' + req.body.step1 + '</p><p>' + req.body.step2 + '</p><p>' + req.body.step3 + '</p><p>' + req.body.step4 + '</p><p>' + req.body.step5 + '</p><p>' + req.body.step6 + '</p><p>' + req.body.phone + '</p>'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ');
+    }
+  
+  });
  
 
 });
